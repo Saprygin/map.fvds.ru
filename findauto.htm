@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Поиск адреса</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <script type="text/javascript">
+    
+    //Эта функция будет вызвана один раз после загрузки страницы
+    function OnPageLoaded() {
+        var div = document.getElementById("MapDivWithAnyName");
+        //делаем размер тега div карты равными размеру окна броузера
+        _GwMapObj.SetWidth(div);
+        _GwMapObj.OnPageLoaded(div, true, 73.3937532,54.9709016), 11);
+        _GwMapObj.SetAutoSuggestStreet("FindStreetAcId");
+        _GwMapObj.SetAutoSuggestCity("FindCityAcId");        
+    }
+    
+    //вызывается при изменении размеров окна броузера
+    function OnPageResized() {
+        //делаем размер тега div карты равными размеру окна броузера
+        var div = document.getElementById("MapDivWithAnyName");
+        _GwMapObj.SetWidth(div);
+        _GwMapObj.OnPageResized();
+    }
+    
+    //Эта функция будет вызываться при получении ответа от сервера или по таймауту
+    function OnAddrResponse(points) {
+        //При ошибке показываем ошибку в статусе 
+        if(points == null)
+            document.getElementById("StatusText").innerHTML = "Error";
+        else if(points.length==0)
+            document.getElementById("StatusText").innerHTML = "not found";
+        else {
+            //Мы получили ответ от сервера. Показываем маркер
+            var str = "";
+            for(var i=0; i<points.length; i++) {
+                str += points[i].city+", "+points[i].street+" "+points[i].streetType+", "+points[i].house+", "+points[i].building+", "+points[i].appartment
+                      +", "+points[i].mainCity+", "+points[i].lng+", "+points[i].lat+", "+points[i].mapId+"<br />";
+            }
+            document.getElementById("StatusText").innerHTML = str;
+            if(points.length > 0) {
+                var tooltip = points[0].city+","+ points[0].street+" "+ points[0].streetType;
+                if(points[0].house != "")
+                    tooltip += ","+ points[0].house;
+                if(points[0].building != "")
+                    tooltip += "/"+ points[0].building;
+                _GwMapObj.MarkerShow("arrowd", points[0].lng, points[0].lat, "images/pointArrow.png", 32, 32, 16, 32, true, tooltip);
+            }
+        }
+    }
+
+    //вызывается когда пользователь кликает по кнопке Адрес
+    function OnAddr() {
+        //Если мы не в адресном режиме, то стартуем поиск адреса.
+        if (document.getElementById("OnAddrId").innerHTML == "Показать Адрес") {
+            var addr;
+            //Используем техт из контрола FindStreetAcId, если он не пустой.
+            if (document.getElementById("FindStreetAcId").value.length != 0)
+                addr = document.getElementById("FindStreetAcId").value;
+            //Иначе просим пользователя ввести строку поиска
+            else
+                addr = prompt("Enter address", "");
+            if(addr == null || addr == "")
+                return;
+            //Посылаем запрос на сервер и изменяем статусный текст и текст кнопки
+            _GwMapObj.AddrRequest(OnAddrResponse, addr);
+            document.getElementById("StatusText").innerHTML = "<b>........З А Г Р У З К А....А Д Р Е С А............";
+            document.getElementById("OnAddrId").innerHTML = "Спрятать Адрес";
+        } else {
+            //Удаляем маркер адреса и изменяем статусный текст и текст кнопки
+            _GwMapObj.MarkerHide("arrowd");
+            document.getElementById("StatusText").innerHTML = "";
+            document.getElementById("OnAddrId").innerHTML = "Показать Адрес";
+        }
+    }
+
+    //вызывается когда пользователь кликает по кнопке Адрес Сорт
+    function OnAddrSort() {
+        //Если мы не в адресном режиме, то стартуем поиск адреса.
+        if (document.getElementById("OnAddrSortId").innerHTML == "Показать Адрес Сорт") {
+            var addr;
+            //Используем техт из контрола FindStreetAcId, если он не пустой.
+            if (document.getElementById("FindStreetAcId").value.length != 0)
+                addr = document.getElementById("FindStreetAcId").value;
+            //Иначе просим пользователя ввести строку поиска
+            else
+                addr = prompt("Enter address", "");
+            if(addr == null || addr == "")
+                return;
+            //Посылаем запрос на сервер и изменяем статусный текст и текст кнопки
+            var lng = _GwMapObj.PixToDegX();
+            var lat = _GwMapObj.PixToDegY();
+            _GwMapObj.AddrRequest(OnAddrResponse, addr, lng, lat);
+            document.getElementById("StatusText").innerHTML = "<b>........З А Г Р У З К А....А Д Р Е С А............";
+            document.getElementById("OnAddrSortId").innerHTML = "Спрятать Адрес Сорт";
+        } else {
+            //маркер адреса видим
+            //Удаляем маркер адреса и изменяем статусный текст и текст кнопки
+            _GwMapObj.MarkerHide("arrowd");
+            document.getElementById("StatusText").innerHTML = "";
+            document.getElementById("OnAddrSortId").innerHTML = "Показать Адрес Сорт";
+        }
+    }
+    
+    //Эта функция будет вызываться при приходе ответа от сервера на запрос поиска города, посланного из функции OnFindCity
+    function OnFindCityCallback(arr) {
+        //Сбрасываем статусный текст
+        document.getElementById("StatusText").innerHTML = "";
+        //Показываем результат в окне
+        if(arr == null || arr.length == 0)
+            document.getElementById("StatusText").innerHTML = "Error";
+        else {
+            var str = "";
+            for(var i=0; i<arr.length; i++) {
+                str += arr[i].name+", "+arr[i].region1+" "+arr[i].region2+", "+arr[i].lng+", "+arr[i].lat+"<br />";
+            }
+            document.getElementById("StatusText").innerHTML = str;
+            var tooltip = arr[0].name+","+ arr[0].region1+","+ arr[0].region2;
+            _GwMapObj.MarkerShow("arrowd", arr[0].lng, arr[0].lat, "images/pointArrow.png", 32, 32, 16, 32, true, tooltip);
+        }
+    }
+
+    //вызывается когда пользователь кликает по кнопке "Найти Город"
+    function OnFindCity() {
+        //Если мы не в режиме поиска, то стартуем поиск города.
+        if (document.getElementById("OnFindCityId").innerHTML == "Найти Город") {
+            var str;
+            //Используем техт из контрола FindCityAcId, если он не пустой.
+            if (document.getElementById("FindCityAcId").value.length != 0)
+                str = document.getElementById("FindCityAcId").value;
+            //Иначе просим пользователя ввести строку поиска
+            else
+                str = prompt("Введите город. Можете использовать * (например моск*)", "");
+            if (str == null || str == "")
+                return;
+            //Посылаем запрос на сервер и изменяем статусный текст и текст кнопки
+            var lng = _GwMapObj.PixToDegX();
+            var lat = _GwMapObj.PixToDegY();
+            _GwMapObj.FindCityRequest(OnFindCityCallback, str, lng, lat);
+            document.getElementById("StatusText").innerHTML = "<b>........П О И С К....Г О Р О Д А............";
+            document.getElementById("OnFindCityId").innerHTML = "Отменить поиск города";
+        } else {
+            //Удаляем маркер и изменяем статусный текст и текст кнопки
+            _GwMapObj.MarkerHide("arrowd");
+            document.getElementById("StatusText").innerHTML = "";
+            document.getElementById("OnFindCityId").innerHTML = "Найти Город";
+        }
+    }
+    
+    //вызывается когда пользователь кликает по кнопке "Как искать?"
+    function OnHelp() {
+        //Если мы не в режиме поиска, то стартуем поиск города.
+        if (document.getElementById("OnHelpId").innerHTML == "Как искать?") {
+            document.getElementById("HelpDiv").style.visibility = "visible";
+            document.getElementById("OnHelpId").innerHTML = "Убрать подсказку";
+        } else {
+            document.getElementById("HelpDiv").style.visibility = "hidden";
+            document.getElementById("OnHelpId").innerHTML = "Как искать?";
+        }
+    }
+
+    </script>
+
+    <!-- Загрузка скрипта -->
+    <script type = "text/javascript" src = "http://gws.ingit.ru:80/GwMap9e.js?cover.cvr"></script>
+
+    <!-- Загрузка скрипта автодополнения -->
+    <link rel="stylesheet" type="text/css" href="http://gws.ingit.ru:80/scripts/autosuggest.css" />
+    <script type="text/javascript" src="http://gws.ingit.ru:80/scripts/autosuggest.js"></script>
+
+</head>
+<body onload="OnPageLoaded();" onresize="OnPageResized();" style="margin:0;">
+
+<!-- div с любым id, который будет использоваться для отображения карты -->
+<div id="MapDivWithAnyName">
+    <!--div для вспогательных кнопок и текстов.-->
+    <div style="position:absolute; top:10; left:10; z-index:6;">
+
+        <input type="text" id="FindStreetAcId" value="" style="z-index:20;font-family:verdana;width:300px;font-size:12px"/>
+        <button id="OnAddrId" onclick="OnAddr();">Показать Адрес</button>
+        <button id="OnAddrSortId" onclick="OnAddrSort();">Показать Адрес Сорт</button>
+        <button id="OnHelpId" onclick="OnHelp();">Как искать?</button>
+        <br />
+        <input type="text" id="FindCityAcId" value="" style="z-index:20;font-family:verdana;width:300px;font-size:12px"/>
+        <button id="OnFindCityId" onclick="OnFindCity();">Найти Город</button>
+
+        <br />
+        <span id="StatusText" style="background-color:White;"></span>
+        <br />
+        <div id="HelpDiv" style="visibility: hidden;">
+            <span id="InfoText1" style="background-color:White;">Строка поиска адреса состоит от двух до четырех полей с запятой в качестве разделителя.</span>
+            <br />
+            <span id="InfoText2" style="background-color:White;">Первое поле: название улицы. Например, «ленина».</span>
+            <br />
+
+            <span id="InfoText3" style="background-color:White;">Второе поле: тип улицы. Например, «ул.» или «пр.».</span>
+            <br />
+            <span id="InfoText4" style="background-color:White;">Третье поле: название населенного пункта.</span>
+            <br />
+            <span id="InfoText5" style="background-color:White;">Четвертое поле: номер дома.</span>
+            <br />
+            <span id="InfoText6" style="background-color:White;">Пример: АРБАТ,УЛ.,МОСКВА,4</span>
+
+            <br />
+            <span id="InfoText7" style="background-color:White;">В процессе набора адреса работает автодополнение, показывающее возможные варианты</span>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

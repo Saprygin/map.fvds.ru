@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8" />
+	<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<title></title>
+	<meta name="title" content="ТОРГОВЫЕ ТОЧКИ, КОНКУРЕНТЫ ОАО ХЛЕБОДАР" />
+	<meta name="keywords" content="" />
+	<meta name="description" content="Торговые точки, КОНКУРЕНТЫ ОАО ХЛЕБОДАР" />
+	
+	<link rel="stylesheet" href="style3.css" type="text/css" media="screen, projection" />
+	<script src="http://api-maps.yandex.ru/1.1/index.xml?key=ALglcE4BAAAAsJUrbQMAmJbdumYRVpaplmlmxXt-0SEaIPgAAAAAAAAAAAClWU0yNxJn1iUR3QiKDaYpTAevaw=="type="text/javascript"></script> 
+   
+
+	<script type="text/javascript"> 
+	<!-- Добавление балуна -->
+	
+var map;
+
+window.onload = function () {
+            map = new YMaps.Map(document.getElementById("YMapsID"));
+            map.setCenter(new YMaps.GeoPoint(73.3937532,54.9709016), 11);
+            
+            map.addControl(new YMaps.TypeControl());
+            map.addControl(new YMaps.ToolBar());
+            map.addControl(new YMaps.Zoom());
+            //map.addControl(new YMaps.ScaleLine());
+            map.enableScrollZoom();
+			map.addControl(new YMaps.MiniMap());
+			map.addControl(new YMaps.SearchControl());
+ 
+<!--__________________________Добавление информации по клиенту в баллун --_______________________________________________>
+var myLayout = function (geoPoint) {
+   var $element = YMaps.jQuery ('<div style="border-radius: 5px 5px 5px 5px;" class="dobavit_clienta">Добавить клиента / конкурента</div><div class="nazvanye">Название: <textarea id="name" placeholder="Введите имя клиента" cols="25" rows="1"/></textarea><br />Адрес &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea id="address" placeholder="Введите адрес" cols="25" rows="1"/></textarea><br />Описание: <textarea id="descriptpoint" placeholder="Введите любую иформацию: Название магазина; в каком месте стоит; цвет и т.д." cols="25" rows="2"/></textarea><br />Телефон:&nbsp&nbsp&nbsp<input type="text" placeholder="Введите любой" id="telefone"/><br />Менеджер:<select id="manager"><option> </option><option>Сапрыгин</option><option>Садыкова</option><option>Миронова</option><option>Майоров</option><option>Чудайкин</option><option>Ушакова</option><option>Гайдадым</option><option>Линиенко</option><option>Новгородцева</option><option>Отсутствует</option></select><br />Категория: <select id="type"><option> </option><option value="Не работает с нами">Не работает с нами</option><option value="Тандер"><i>Тандер</i></option><option value="Магазины">Магазины</option><option value="Собственная торговля">Собственная торговля</option><option value="Рынок">Рынок</option><option value="Минирынок">Минирынок</option><option value="Киоск">Киоск</option><option value="Павильоны">Павильоны</option><option value="Формат">Формат</option><option value="Агрико">Агрико</option><option value="Супермаркет">Супермаркет</option> <optgroup label="Сетевой супермаркет"><option value="Холидей">Холидей</option><option value="Формат">Формат</option><option value="Магнит">Магнит</option><option value="Тандер">Тандер</option></optgroup> </select><br />Что покупает<select id="pokupki"><option>- </option><option>Хлеб<option>Батоны<option>Кондитерка</option><option>Хлеб и батоны</option><option>Хлеб и кондитерка</option><option>Батоны и кондитерка</option><option value="Хлеб, батоны, кондитерка">Всё</option></select><br />Ср/сут отгрузка: <input type="text" id="srednesutochnaya"/><br /><input type="button" value="Сохранить" id="submit"/></div><br><div class="poyasnenie">**После нажатия кнопки "сохранить" маркер<br> отобразится на карте и для полного его отображения,<br> необходимо обновить страницу браузера.</div><br><br><br><br>');
+   this.onAddToParent = function (parent) {
+        $element.find('#submit').bind('click', function () {
+		$element.find('#submit').unbind('click');
+              YMaps.jQuery.ajax({
+                  url: 'addpoint.php',
+                  data: {
+                       namepoint: $element.find('#name')[0].value,
+					   address: $element.find('#address')[0].value,
+					   descriptpoint: $element.find('#descriptpoint')[0].value,
+                       telefone: $element.find('#telefone')[0].value,
+					   manager: $element.find('#manager')[0].value,
+					   type: $element.find('#type option:selected')[0].value,					   
+					//   vip: $element.find('#vip')[0].value,
+					//   rating: $element.find('#rating')[0].value,
+					   //competitor: $element.find('#competitor')[0].value,
+					   pokupki: $element.find('#pokupki')[0].value,
+					   srednesutochnaya: $element.find('#srednesutochnaya')[0].value,
+					   //lotki: $element.find('#lotki')[0].value,
+					   pcoord: geoPoint.toString()
+                  },
+ 
+            dataType: 'json',
+                  // Это функция обработки ответа сервера
+                  success: function (res) {
+                       if (res.success) {
+                             // если точка сохранилась, закрываем балун
+                             map.closeBalloon();
+                             // и ставим точку на карту
+                             map.addOverlay(new YMaps.Placemark(geoPoint));
+ 
+                       } else {
+                             // иначе выдаем сообщение об ошибке
+                            // YMaps.jQuery('<p style="color:red">' + e.message + '</p>').appendTo("#scriptmes");
+							 YMaps.jQuery("#scriptmes").html('<p style="color:red">' + e.message + '</p>');
+                       }
+                  }
+              });
+ 
+        });
+        $element.appendTo(parent);
+   };
+   this.onRemoveFromParent = function () {
+        $element.remove();
+   };
+ 
+   this.update = function () {};
+}
+ 
+YMaps.Events.observe(map, map.Events.Click, function (map, e) {
+     map.openBalloon(e.getCoordPoint(), new myLayout(e.getCoordPoint()));
+});
+ 
+} 	
+<!--__________________________Конец добавления информации по клиенту в баллун ---->>>
+
+
+
+//Запрос данных и вывод маркеров на карту
+YMaps.jQuery.getJSON("markermap.php",
+function(json){
+for (i = 0; i < json.markers.length; i++) {
+var placemark=new YMaps.Placemark(new YMaps.GeoPoint(json.markers[i].lat,json.markers[i].lng), {style: "default#bankIcon"});
+
+
+placemark.description= '<div class="name">'+json.markers[i].name+'</div>'; 
+placemark.description = placemark.description+'<strong><div class="descriptions">Описание:</strong> '+json.markers[i].descriptions+ '</div>' ;
+placemark.description = placemark.description+'<strong><div class="address">Адрес:</strong> '+json.markers[i].address+ '</div>'; 
+placemark.description = placemark.description+'<strong><div class="telefone">Телефон:</strong> '+json.markers[i].telefone+ '</div>'; 
+placemark.description = placemark.description+'<strong><div class="manager">Менеджер:</strong> '+json.markers[i].manager+ '</div>'; 
+placemark.description = placemark.description+'<strong><div class="category">Категория:</strong> '+json.markers[i].type+ '</div>';
+//placemark.description = placemark.description+'<strong><div class="vip">Vip:</strong> '+json.markers[i].vip+ '</div>';
+//placemark.description = placemark.description+'<strong><div class="concurent">Конкурент:</strong> '+json.markers[i].competitor+ '</div>';
+//placemark.description = placemark.description+'<strong><div class="rating">Рейтинг:</strong> '+json.markers[i].rating+ '</div>';
+placemark.description = placemark.description+'<strong><div class="zakaz">Что покупают:</strong> '+json.markers[i].pokupki+ '</div>';
+placemark.description = placemark.description+'<strong><div class="zakaz">Ср/сут. отгрузка:</strong> '+json.markers[i].srednesutochnaya+ '</div>';
+//placemark.description = placemark.description+'<strong><div class="zakaz">Кол-во лотков:</strong> '+json.markers[i].lotki+ '</div>';
+map.addOverlay(placemark);
+}
+ 
+});
+
+/*
+
+/////////////////////////////////Запрос вывода Автомобилей на карту////////////////////////////////
+YMaps.jQuery.getJSON("automap.php",
+function(json){
+for (i = 0; i < json.markers.length; i++) {
+var placemark=new YMaps.Placemark(new YMaps.GeoPoint(json.markers[i].lat,json.markers[i].lng), {style: "default#truckIcon"});
+placemark.description= '<div style="color:#110399;font-weight:bold">'+json.markers[i].name+'</div>';
+placemark.description = placemark.description+'<strong>Идентификатор:</strong>' +json.markers[i].id+ '</br>';
+placemark.description = placemark.description+'<strong>Номер авто:</strong> '+json.markers[i].kod+ '<br>';
+placemark.description = placemark.description+'<strong>Гос.номер:</strong> '+json.markers[i].name+ '<br>';
+map.addOverlay(placemark);
+
+}
+ 
+});
+
+///////////////////////////////////////////Конец  Запроса вывода Автомобилей на карту///////////////////////////////////////////////////// 
+ 
+*/
+
+
+
+<!-- Добавление функции show_c -->
+
+function show_c(c){
+YMaps.jQuery('#obj a').removeClass("active");
+map.removeAllOverlays();
+//Запрос данных и вывод маркеров на карту по категориям
+YMaps.jQuery.getJSON("markermap7.php", {cat:c},
+function(json){
+for (i = 0; i < json.markers.length; i++) {
+var placemark=new YMaps.Placemark(new YMaps.GeoPoint(json.markers[i].lat,json.markers[i].lng));
+if(c == "Магазины"){placemark.setStyle("default#houseIcon")};
+if(c== "Рынок"){placemark.setStyle("default#storehouseIcon")};
+if(c== "Киоск"){placemark.setStyle("default#cellularIcon")};
+if(c== "Павильоны"){placemark.setStyle("default#dryCleanerIcon")};
+if(c== "Формат"){placemark.setStyle("default#campingIcon")};
+if(c== "Супермаркет"){placemark.setStyle("default#shopIcon")};
+if(c== "VIP"){placemark.setStyle("default#metroYekaterinburgIcon")};
+if(c== "Агрико"){placemark.setStyle("default#stadiumIcon")};
+if(c== "Не работает с нами"){placemark.setStyle("default#hospitalIcon")};
+if(c== "Холидей"){placemark.setStyle("default#greySmallPoint")};
+if(c== "Тандер"){placemark.setStyle("default#attentionIcon")};
+if(c== "Собственная торговля"){placemark.setStyle("default#tireIcon")};
+if(c== "Минирынок"){placemark.setStyle("default#gymIcon")};
+
+placemark.description= '<div class="name">'+json.markers[i].name+'</div>';
+placemark.description = placemark.description+
+'<strong><div class="descriptions">Описание:</strong> '+json.markers[i].descriptions+
+'<br /><strong><div class="address">Адрес:</strong> '+json.markers[i].address+ 
+'<br /><strong><div class="telefone">Телефон:</strong> '+json.markers[i].telefone+ 
+'<br /><strong>Менеджер:</strong> '+json.markers[i].manager+
+'<br /><strong>Категория:</strong> '+json.markers[i].type+
+//'<br /><strong>VIP?:</strong> '+json.markers[i].vip+
+//'<br /><strong>Конкурент:</strong> '+json.markers[i].competitor+
+//'<br /><strong>Рейтинг:</strong> '+json.markers[i].rating+
+'<br /><strong>Что покупают:</strong> '+json.markers[i].pokupki+
+'<br /><strong>Ср/сут. отгрузка:</strong> '+json.markers[i].srednesutochnaya+
+//'<br /><strong>Кол-во лотков:</strong> '+json.markers[i].lotki ;
+map.addOverlay(placemark);
+}
+});
+YMaps.jQuery('a#'+c).addClass("active");
+return false;
+}
+
+<!--______________________КОНТЕЙНЕР___________________-->
+
+</script>
+
+
+<script type="text/javascript">
+$(function() {
+$(window).scroll(function(){
+var scrollTop = $(window).scrollTop();
+if(scrollTop != 0)
+$('#nav').stop().animate({'opacity':'0.2'},400);
+else
+$('#nav').stop().animate({'opacity':'1'},400);
+}); $('#nav').hover(
+function (e) {
+var scrollTop = $(window).scrollTop();
+if(scrollTop != 0){
+$('#nav').stop().animate({'opacity':'1'},400);
+}
+},
+function (e) {
+var scrollTop = $(window).scrollTop();
+if(scrollTop != 0){
+$('#nav').stop().animate({'opacity':'0.2'},400);
+}
+}
+);
+});
+
+<!--_____________________Конец КОНТЕЙНЕРА_____________-->
+
+
+
+
+
+</script>
+
+
+<!--_____________________Меню на jQuery______________-->
+
+<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js'></script>
+<script type="text/javascript" src="jquery.js">
+
+$(document).ready(function(){
+
+	$(".btn-slide").click(function(){
+		$("#panel").slideToggle("slow");
+		$(this).toggleClass("active"); return false;
+	});
+	
+	 
+});
+
+</script>
+
+
+
+
+	</head>
+
+<body>
+
+
+	
+	 <div id="YMapsID"></div>
+	 <div id="scriptmes"></div>
+<!--
+<div style="border-radius: 5px 5px 5px 5px;" id="nav2">
+ 
+<a href="" id="Торговая точка" ONCLICK="show_c('Торговая точка'); return false;"><img src="../images/house.png"/ TITLE="ПОКАЗАТЬ ВСЕ ТОРГОВЫЕ ТОЧКИ"></a> 
+<a href="" id="Вагончик" onclick="show_c('Вагончик'); return false;"><img src="../images/vagons.png"/ TITLE="ПОКАЗАТЬ ВСЕ ВАГОНЧИКИ"></a> 
+<a href="" id="Рынок" onclick="show_c('Рынок'); return false;" ALT="РЫНКИ"><img src="../images/rynok.png"/ TITLE="ПОКАЗАТЬ ВСЕ РЫНКИ"></a> 
+<a href="" id="Киоск" onclick="show_c('Киоск'); return false;"><img src="../images/kiosk.png"/ TITLE="ПОКАЗАТЬ ВСЕ КИОСКИ"></a> 
+<a href="" id="Палатка" onclick="show_c('Палатка'); return false;"><img src="../images/palatka.png"/ TITLE="ПОКАЗАТЬ ВСЕ ПАЛАТКИ"></a> 
+<a href="" id="Супермаркет" onclick="show_c('Супермаркет'); return false;"><img src="../images/seteviki.png"/ TITLE="ПОКАЗАТЬ ВСЕ СУПЕРМАРКЕТЫ"></a>
+<a href="" id="VIP" onclick="show_c('VIP'); return false;"><img src="../images/vip.png"/ TITLE="ПОКАЗАТЬ VIP-КЛИЕНТОВ"></a> 
+<a href="" id="Агрико" onclick="show_c('Агрико'); return false;"><img src="../images/stadium.png"/ TITLE="ПОКАЗАТЬ ВСЕХ КЛИЕНТОВ АГРИКИ"></A> 
+<a href="" id="Конкурент" onclick="show_c('Конкурент'); return false;"><img src="../images/competitor.png"/ title="ПОКАЗАТЬ ВСЕХ КОНКУРЕНТОВ"></A> 
+<a href="" id="Не работает с нами" onclick="show_c('Не работает с нами'); return false;"><img src="../images/hospital.png"/ title="ПОКАЗАТЬ ВСЕ ТОЧКИ, КОТОРЫЕ С НАМИ НЕ РАБОТАЮТ"></A>
+<a href="" id="Астор" onclick="show_c('Астор'); return false;"><img src="../images/astor.png"/ TITLE="ПОКАЗАТЬ ВСЕ АСТОРЫ"></a>
+<a href="" id="Собственная торговля" onclick="show_c('Собственная торговля'); return false;"><img src="../images/sobsttorgovlya.png"/ TITLE="ПОКАЗАТЬ ВСЕ ТОЧКИ СОБСТВЕННОЙ ТОРГОВЛИ"></a>
+<a href="" id="Минирынок" onclick="show_c('Минирынок'); return false;"><img src="../images/minirynok.png"/ TITLE="ПОКАЗАТЬ ВСЕ МИНИРЫНКИ"></a>
+-->
+	  
+</div>
+
+<div style="border-radius: 0px 0px 5px 5px;" id="legenda">
+
+<a href="" id="Магазины" onclick="show_c('Магазины'); return false;"><img src="../images/house.png"/ ><sup>МАГАЗИНЫ</sup></a><br>
+<a href="" id="Павильоны" onclick="show_c('Павильоны'); return false;"><img src="../images/vagons.png"/ ><SUP>ПАВИЛЬОНЫ</SUP></a><br>
+<a href="" id="Рынок" onclick="show_c('Рынок'); return false;"><img src="../images/rynok.png"/ ><SUP>РЫНКИ</SUP></a><br>
+<a href="" id="Киоск" onclick="show_c('Киоск'); return false;"><img src="../images/kiosk.png"/ ><SUP>КИОСКИ</SUP></a><br>
+<a href="" id="Формат" onclick="show_c('Формат'); return false;"><img src="../images/palatka.png"/ ><SUP>ФОРМАТ</SUP></a><br> 
+<a href="" id="Супермаркет" onclick="show_c('Супермаркет'); return false;"><img src="../images/seteviki.png"/ ><SUP>СУПЕРМАРКЕТЫ</SUP></a><br>
+<!--<a href="" id="VIP" onclick="show_c('VIP'); return false;"><img src="../images/vip.png"/ ><SUP>VIP-КЛИЕНТЫ</SUP></a><br> 
+-->
+<a href="" id="Агрико" onclick="show_c('Агрико'); return false;"><img src="../images/stadium.png"/ ><SUP>АГРИКО</SUP></A><br> 
+<a href="" id="Тандер" onclick="show_c('Тандер'); return false;"><img src="../images/competitor.png"/ ><SUP>ТАНДЕР</SUP></A><br>
+<a href="" id="Не работает с нами" onclick="show_c('Не работает с нами'); return false;"><img src="../images/hospital.png"/ ><SUP>НЕ РАБОТАЮТ С НАМИ</SUP></A><br>
+<a href="" id="Холидей" onclick="show_c('Холидей'); return false;"><img src="../images/astor.png"/ ><sup>ХОЛИДЕЙ</sup></a><br>
+<a href="" id="Собственная торговля" onclick="show_c('Собственная торговля'); return false;"><img src="../images/sobsttorgovlya.png"/ ><SUP>СОБСТВЕННАЯ ТОРГОВЛЯ</SUP></a><br>
+<a href="" id="Минирынок" onclick="show_c('Минирынок'); return false;"><img src="../images/minirynok.png"/ ><SUP>МИНИРЫНКИ</SUP></a><br>
+  
+
+</div>
+
+<div style="border-radius: 5px 5px 5px 5px;" id="nav4">
+</div>
+
+<div style="border-radius: 5px 5px 5px 5px;" id="nav5">
+
+<div class="soderjanie2">Найдите на карте точку, максимально увеличив масштаб карты, щелкните левой кнопкой мыши и в появившемся окне заполните <a>ВСЕ</a> поля.
+	  </div>
+</div>
+
+
+<a href="" id="rynok", id="supermarket" ><div class="knopka_obnovit" style="border-radius: 5px 5px 5px 5px;" id="nav6">Обновить страницу
+</div></a>
+<div class="knopka_obnovit" style="border-radius: 5px 5px 5px 5px;" id="nav7">Для корректной работы сайта используйте Mozilla Firefox</div>
+
+
+
+
+</body>
+</html>

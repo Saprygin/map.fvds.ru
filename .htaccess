@@ -1,0 +1,6 @@
+<Limit GET POST>
+	require valid-user
+</Limit>
+AuthType Basic
+AuthName "/www/map.fvds.ru/"
+AuthUserFile /home/hlebodar/data/etc/20725981.passwd

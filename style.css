@@ -1,0 +1,367 @@
+
+/*
+ОАО "ХЛЕБОДАР"
+*/
+
+body {
+	margin: 0;
+	padding: 0;
+	background: #ffffd9;  /* фон хедера */
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #5B7817;
+}
+
+h1, h2, h3 {
+	margin: 0;
+	padding: 0;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-weight: normal;
+	color: #F93D00;
+}
+
+h1 {
+	font-size: 2em;
+}
+
+h2 {
+	font-size: 1.6em;
+}
+
+h3 {
+	font-size: 1.6em;
+}
+
+p, ul, ol {
+	margin-top: 0;
+	line-height: 180%;
+}
+
+ul, ol {
+}
+
+a {
+	text-decoration: none;
+	color: #704A21;
+}
+
+a:hover {
+}
+
+#wrapper {
+	width: 960px;
+	margin: 0 auto;
+	padding: 0;
+}
+
+/* Header */
+
+#header {
+	width: 1160px;
+	height: 27px;
+	margin: 5px auto;
+	
+	
+}
+
+
+/* Logo */
+/*
+#logo {
+	float: left;
+	height: 65px;
+	margin: 0;
+	padding-top: 20px;
+	color: #FFFFFF;
+}
+
+#logo h1, #logo p {
+	margin: 0;
+	padding: 0;
+}
+
+#logo h1 {
+	float: left;
+	letter-spacing: -1px;
+	text-transform: lowercase;
+	font-size: 2.6em;
+}
+
+#logo p {
+	float: left;
+	margin: 0;
+	padding: 12px 0 0 10px;
+	font: normal 14px Georgia, "Times New Roman", Times, serif;
+	font-style: italic;
+} 
+
+#logo a {
+	border: double;
+	background: none;
+	text-decoration: none;
+	color: #FFFFFF;
+}
+*/
+/* Search */
+
+#search {
+	float: none;
+	width: 220px;
+	padding: 0;
+}
+
+#search form {
+	height: 41px;
+	margin: 0;
+	padding: 30px 0 0 0px;
+}
+
+#search fieldset {
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+#search-text {
+	width: 210px;
+	padding: 5px 5px;
+	border: none;
+	background: #F2D14C;
+	text-transform: lowercase;
+	font: normal 11px Arial, Helvetica, sans-serif;
+	color: #5D781D;
+}
+
+#search-submit {
+	display: none;
+}
+/*Выдвигающееся меню c улыбкой*/
+#button {
+	position: fixed;
+	top: 353px;
+	left: 0;
+	background: #0094d6;
+	width: 28px;
+	height: 50px;
+	font: 40px Georgia;
+	color: #fff;
+	text-align: center;
+	-webkit-transition-duration: 0.3s;
+	-moz-transition-duration: 0.3s;
+	-o-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+	-webkit-border-radius: 0 5px 5px 0;
+	-moz-border-radius: 0 5px 5px 0;
+	border-radius: 0 5px 5px 0;
+	}
+#s_panel {
+	position: fixed;
+	top: 153px;
+	left: -100px;
+	background: #ff7700;
+	width: 100px;
+	height: 150px;
+	padding: 100px 0 0 0;
+	-webkit-transition-duration: 0.3s;
+	-moz-transition-duration: 0.3s;
+	-o-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+	-webkit-border-radius: 0 5px 0 0;
+	-moz-border-radius: 0 5px 0 0;
+	border-radius: 0 5px 0 0;
+	}
+#button:hover {
+	left: 100px;
+}
+#button:hover #s_panel {
+	left: 0;
+}
+
+/* Конец Выдвигающееся меню*/
+
+/*Анимированное вертикальное меню на MooTools*/
+/*
+* {
+	margin: 0;
+	padding: 0;
+	}
+ul {
+	list-style: none;
+	}
+h3 {
+	background: #000;
+	padding: 4px;
+	font-size: 12px;
+	color: #000;
+	border-bottom: solid 2px #fff;
+	cursor: pointer;
+	font-weight: normal;
+	text-transform: uppercase;
+	text-align: center;
+	}
+#box {
+	width: 250px;
+	border: solid 1px #fff;
+	font-family: Georgia;
+	margin: 10px auto;
+	}
+#menu li {
+	border-bottom: solid 1px #DEDEDE;
+	text-align: center;
+	}
+#menu li a {
+	padding:3px 6px;
+	display:block;
+	color:#fff;
+	text-decoration:none;
+	background: #ccc;
+	}
+#menu li a:hover {
+	background: #666;
+	}
+
+
+
+/* конец Анимированное вертикальное меню на MooTools*/
+
+
+
+
+/* Page */
+
+#page {
+	width: 1260px;
+	margin: 0 auto;
+	padding: 0;
+	background: url(images/img04.jpg) repeat-y left top;
+}
+
+/* Content   Надпись над картой*/
+
+#content {
+	float: left;
+	width: 1250px;
+	padding: 0;
+	
+}
+
+
+
+.post .title {
+	height: 35px; /*Высота от текста до карты */
+	padding: 8px 0 0 0px;
+	letter-spacing: -.5px;
+	color: #009933; /*цвет текста большого */
+	background: #ffffd9;
+}
+
+.post .title a {
+	color: #5B7817;
+	border: none;
+}
+
+.dobavit_clienta {
+  
+	font-family: Tahoma;
+	font-size: 10px;
+	color: #333366;
+
+}
+
+.dobavit_konkurenta {
+  
+	font-family: Tahoma;
+	font-size: 20px;
+	color: #999699;
+	}
+/* Sidebar */
+
+#sidebar {
+	float: ;
+	width: 250px;
+	padding: 0;
+	color: #323342;
+}
+
+#bokovoy {
+       position: right;
+	   margin: 0;
+	   padding: 0;
+}
+#sidebar ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+#sidebar li {
+	margin: 0;
+	padding: 0;
+}
+
+#sidebar li ul {
+	padding-bottom: 30px;
+}
+
+#sidebar li li {
+	line-height: 35px;
+	border-bottom: 1px dashed #C5DB76;
+	background: url(images/img06.jpg) no-repeat left 15px;
+	padding-left: 10px;
+}
+
+#sidebar li li span {
+	display: block;
+	margin-top: -20px;
+	padding: 0;
+	font-size: 11px;
+	font-style: italic;
+}
+
+#sidebar h2 {
+	height: 32px;
+	padding: 8px 0 0 0px;
+	letter-spacing: -.10px; /*расстояние между буквами*/
+	color: #5B7817;
+}
+
+#sidebar p {
+	margin: 0 0px;
+	padding-bottom: 20px;
+	text-align: justify;
+}
+
+#sidebar a {
+	color: #704A21;
+	border: none;
+}
+
+#sidebar a:hover {
+	text-decoration: overline;
+	color: #787878;
+}
+
+/* Footer */
+
+#footer {
+	width: 1260px;
+	background: #5D781D;
+	height: 20px;
+	margin: 0 auto;
+	padding: 0px 0 15px 0;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#footer p {
+	margin: 50%;
+	padding-top: 20px;
+	line-height: normal;
+	font-size: 8px;
+	text-transform: capitalize;
+	text-align: center;
+	color: #E1F5A6;
+}
+
+#footer a {
+	color: #5B7817;
+}

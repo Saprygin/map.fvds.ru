@@ -1,0 +1,499 @@
+html, body, #YMapsID {
+            width: 100%;
+            height: 100%;
+                   }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            }
+
+a {
+	color: black;
+	font-size: 12px;
+
+	text-decoration: none;
+  }
+a:hover {
+	    text-decoration: none;
+		color: blue;
+        }
+
+
+
+ul
+{
+position:absolute;
+left:0px;
+top:0px;
+z-index:-1;
+} 
+
+
+
+
+.vse {
+   color: red;
+}
+
+.post.title {
+	height: 35px; /*Высота от текста до карты */
+	padding: 10px 0 0 0px;
+	letter-spacing: -.5px;
+	color: #009933; /*цвет текста большого */
+	background: #ffffd9;
+            }
+
+.post.title a {
+	color: #5B7817;
+	border: none;
+             }
+ 
+.dobavit_clienta {
+  
+	font-family: Monospace;
+	font-size: 16px;
+	color: green;
+	padding: 5px 5px 5px 25px;
+	background: #c9f76f;
+
+
+                 }
+
+.nazvanye {
+          font-family: Tahoma;
+		  font-size: 16px;
+		  color: #663333;
+		  font-weight:bold;
+		  background: #F8F8F8;
+          padding: 5px 0 0 25px;
+          }
+		  
+.poyasnenie {
+            font-family: Tahoma;
+			font-size: 10px;
+			color: red;
+			padding: 4px 15px;
+			} 
+
+		  
+
+/***************************Открытый баллун *******************/
+.opisanie {
+          color: green; 
+          }
+
+		  
+		  
+		  
+/******************Классы для данных в баллуне*****************/
+.name {
+      color: #0066cc;
+	  font-weight:bold;
+	  background: #FFFFFF;
+	  font-size: 200%;
+	  
+	  }
+	  
+.descriptions {
+              color:#086ca2;
+			  font-weight: larger;
+			  
+			  }
+			  
+.address {
+          color: #0776a0;
+		 }
+
+.telefone {
+           color:#03899c;
+		   }
+.manager {
+         color:#01939a;
+		 }
+
+.category
+                  {
+		  color:#009d91;
+		  }
+.vip {
+      color: #00a67c;
+	  }
+
+.concurent 
+                    {
+		   color:#00a876;
+		   }
+
+.rating 
+              { 
+	    color:#00aa72;
+		}
+.zakaz
+                              {
+							  color:#00b358;
+							  }
+		                 
+/******************End Классы для данных в баллуне*****************/
+
+strong 
+       {
+	font-family: 'Georgia';  
+	  }
+
+
+/*Хедер */
+#nav{
+opacity: 0.6;
+height:200px;
+width: 1000%;
+border-bottom:1px dotted #ddd;
+border: outset;
+position:fixed;
+top:770px;
+left:160px;
+right:800px;
+background:#F1F1F1;
+z-index:999999;
+}
+
+/*Второй блок "зелёное меню" */
+#nav2{
+ opacity: 0.6;
+font-family: Tahoma; 
+color: #FFFFFF;
+height:49px;
+width: 580px;
+border-bottom:1px dotted #ddd;
+border: double;
+position:fixed;
+top:5px;
+left:235px;
+right:1000px;
+background:#80EA69;
+z-index:999999;
+      
+     }
+
+/*Третий блок "показать на карте" */
+#nav3{
+opacity: 0.6;
+font-family: 'Jura', sans-serif; 
+height:340px;
+width: 225px;
+margin-left: 2px;
+margin-right: 2px;
+border: double;
+position:fixed;
+top:410px;
+left:3px;
+right:3px;
+background:#F1F1F1;
+z-index:999999;
+     }
+
+/*Навигация клиентов*/
+#navigation_clients{
+opacity: 0.6;
+font-family: 'Jura', sans-serif; 
+height:340px;
+width: 225px;
+border: double;
+position:fixed;
+top:50px;
+left:1000px;
+right:1000px;
+background:#e3fb71;
+z-index:999999;
+     }
+	 
+#manager_saprygin {
+opacity: 0.6;
+height:21px;
+width: 90px;
+border-bottom:1px dotted #ddd;
+border: double;
+position:fixed;
+top:5px;
+left:100px;
+right:1000px;
+background:#F1F1F1;
+z-index:999999;
+	  
+	  }
+
+	  
+#manager_pervykh {
+opacity: 0.6;
+height:21px;
+width: 90px;
+border-bottom:1px dotted #ddd;
+border: double;
+position:fixed;
+top:5px;
+left:200px;
+right:1000px;
+background:#F1F1F1;
+z-index:999999;
+	  
+	  } 
+
+#manager_chudaykin {
+opacity: 0.6;
+height:21px;
+width: 90px;
+border-bottom:1px dotted #ddd;
+border: double;
+position:fixed;
+top:5px;
+left:300px;
+right:1000px;
+background:#F1F1F1;
+z-index:999999;
+                    }
+
+#manager_ushakova {
+opacity: 0.6;
+height:21px;
+width: 90px;
+border-bottom:1px dotted #ddd;
+border: double;
+position:fixed;
+top:5px;
+left:400px;
+right:1000px;
+background:#F1F1F1;
+z-index:999999;
+                  }
+				  
+#manager_gaydadym {
+opacity: 0.6;
+height:21px;
+width: 90px;
+border-bottom:1px dotted #ddd;
+border: double;
+position:fixed;
+top:5px;
+left:500px;
+right:1000px;
+background:#F1F1F1;
+z-index:999999;
+                  }
+				  
+#manager_linienko {
+opacity: 0.6;
+height:21px;
+width: 90px;
+border-bottom:1px dotted #ddd;
+border: double;
+position:fixed;
+top:5px;
+left:600px;
+right:1000px;
+background:#F1F1F1;
+z-index:999999;
+                  }
+				  
+#manager_novgorodzeva {
+opacity: 0.6;
+height:21px;
+width: 130px;
+border-bottom:1px dotted #ddd;
+border: double;
+position:fixed;
+top:5px;
+left:700px;
+right:1000px;
+background:#F1F1F1;
+z-index:999999;
+                  }
+/*Маленькая инструкция к сайту*/
+#nav5{
+opacity: 0.6;
+font-family: 'Jura', sans-serif; 
+height:78px;
+width: 190px;
+border-bottom:1px dotted #ddd;
+border: double;
+position:fixed;
+top:35px;
+left:35px;
+right:1000px;
+background:#ffffff;
+z-index:999999;
+     }
+
+/*Маленькая кнопка обновления страницы */
+#nav6{
+     opacity: 0.6;
+font-family: Tahoma; 
+color: #ffffff;
+height:22px;
+width: 125px;
+border-bottom:1px dotted #ddd;
+border: double;
+position:fixed;
+top:5px;
+left:100px;
+right:1000px;
+background:#078600;
+z-index:999999;
+      }
+
+/*Информация о браузере */
+#nav7{
+     opacity: 0.6;
+font-family: Tahoma; 
+color: #blue;
+height:62px;
+width: 125px;
+border-bottom:1px dotted #ddd;
+border: once;
+position:fixed;
+top:5px;
+left:235px;
+right:3000px;
+background:#dbe6d1;
+z-index:999999;
+      }
+	  
+/*Меню легенда*/
+#legenda {
+opacity: 0.6;
+font-family: 'Jura', sans-serif; 
+color: green;
+height:378px;
+width: 190px;
+border-bottom:1px dotted #ddd;
+border: double;
+position:fixed;
+top:125px;
+left:35px;
+right:1000px;
+background:#ffffff;
+z-index:999999;
+				 }
+
+
+
+/*Меню процентов продаж, хлеба, кондитерки*/
+#legenda2 {
+                 opacity: 0.6;
+                 font-family: Tahoma; 
+                 color: #008500;
+                 height:22px;
+                 width: 270px;
+                 border-bottom:1px dotted #ddd;
+                 border: double;
+                 position:fixed;
+                 top:5px;
+                 left:560px;
+                 right:1000px;
+                 background:#ffffff;
+                 z-index:999999;
+          }
+
+.hlebodar {
+       color: #980000;
+	   font-family: Monospace;
+	   Font-size: 16px;
+	   padding: 5px 0 0 5px;
+	      }
+
+.soderjanie2 {
+            color: #003300  ;
+			font-family: Tahoma;
+			font-size: 12px;
+			padding: 2px 0 0 2px;
+			
+			 }
+
+.soderjanie2 a {
+              color: red;
+			  font-family: Verdana
+              }
+			 
+			 
+.pokazat_na_karte {
+                  color: #086ca2;
+				  font-family: Tahoma;
+				  font-size: 20px;
+
+                  }
+
+.knopka_obnovit {
+                color: #0C5DA5;
+				font-family: Tahoma;
+				font-size: 12px;
+				font-weight: bold;
+				
+                }
+
+.informazia_o_brauzere  {
+                color: #blue;
+				font-family: Tahoma;
+				font-size: 12px;
+				font-weight: bold;
+.knopka_obnovit a:hover {
+                       background: #ffffff;                       
+					   }
+/*Конец второй блок */
+
+.chto_pokupayut {
+                color: green;
+                }
+
+
+
+
+
+#nav a:hover{
+            background:#ffffff;
+            color: green;
+            }
+#nav a:visited{
+       color: ;
+              }
+
+
+/*стили cсылок */
+#nav a.top span, #nav a.bottom span{
+float:left;
+width:36px;
+height:36px;
+}
+#nav a.top span{
+background:transparent url(../images/top.png) no-repeat center center;
+}
+#nav a.bottom span{
+background:transparent url(../images/bottom.png) no-repeat center center;
+}
+
+/* форма поиска */
+#nav ul li.search{
+float:left;
+}
+#nav input[type="text"]{
+float:left;
+border:1px solid #ccc;
+margin:0px 1px 0px 50px;
+padding:2px 2px 2px 2px;
+}
+
+
+/*Кнопка поиска: */
+input.searchbutton{
+border:1px solid #ccc;
+padding:1px;
+cursor:pointer;
+width:30px;
+height:22px;
+background:#E8E9EA url(../images/search.png) no-repeat center center;
+}
+input.searchbutton:hover{
+background-color:#D9D9DA;
+}
+
+
+
+
